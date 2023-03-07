@@ -1,1 +1,1 @@
-export * from './getDB'
+export * from './useProducts'
