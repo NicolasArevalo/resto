@@ -10,15 +10,15 @@ interface Product {
   }
 
 export default function Productos() {
-	const [products, setProducts] = useState<Product[]>([])
+	const products = useProducts()
 
-	useEffect(() => {
+/* 	useEffect(() => {
 		const FetchProducts = async () => {
 			const fetchedProducts = await useProducts()
 			setProducts(fetchedProducts)
 		}
 		FetchProducts()
-	}, [])
+	}, []) */
 
 	return (
 		<Layout headerTitle='Productos'>

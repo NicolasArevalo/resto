@@ -12,17 +12,15 @@ interface Product {
 export const useProducts = (): Product[] => {
 	const [products, setProducts] = useState<Product[]>([])
 
-	useEffect(() => {
-		const fetchProducts = async () => {
-			const querySnapshot = await getDocs(collection(db, 'products'))
-			const fetchedProducts = querySnapshot.docs.map(doc => ({
-				id: doc.id,
-				...doc.data(),
-			})) as Product[]
-			setProducts(fetchedProducts as Product[])
-		}
-		fetchProducts()
-	}, [])
+	const fetchProducts = async () => {
+		const querySnapshot = await getDocs(collection(db, 'products'))
+		const fetchedProducts = querySnapshot.docs.map(doc => ({
+			id: doc.id,
+			...doc.data(),
+		})) as Product[]
+		setProducts(fetchedProducts as Product[])
+	}
+	fetchProducts()
 
 	return products
 }
