@@ -20,7 +20,7 @@ const Layout = ({
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<Navbar />
-			<main className='max-w-[80rem] bg-red-200 mx-auto'>{children}</main>
+			<main className='max-w-[80rem] mx-auto'>{children}</main>
 		</>
 	)
 }

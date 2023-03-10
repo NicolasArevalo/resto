@@ -1,5 +1,5 @@
 import { db } from '@services/firebaseConfig'
-import { collection, getDocs, query, where } from 'firebase/firestore'
+import { collection, getDocs, query, where, addDoc } from 'firebase/firestore'
 import { useState, useEffect } from 'react'
 
 interface Product {
@@ -9,18 +9,41 @@ interface Product {
 	description: string
 }
 
-export const useProducts = (): Product[] => {
+export const useProducts = (): any => {
 	const [products, setProducts] = useState<Product[]>([])
+	const [loading, setLoading] = useState<Boolean>()
 
-	const fetchProducts = async () => {
-		const querySnapshot = await getDocs(collection(db, 'products'))
-		const fetchedProducts = querySnapshot.docs.map(doc => ({
-			id: doc.id,
-			...doc.data(),
-		})) as Product[]
-		setProducts(fetchedProducts as Product[])
+	useEffect(() => {
+		const fetchProducts = async () => {
+			setLoading(true)
+			const querySnapshot = await getDocs(collection(db, 'products'))
+			const fetchedProducts = querySnapshot.docs.map(doc => ({
+				id: doc.id,
+				...doc.data(),
+			})) as Product[]
+			setProducts(fetchedProducts as Product[])
+			setLoading(false)
+		}
+		fetchProducts()
+	}, [])
+
+	return {
+		products: products,
+		loading: loading
 	}
-	fetchProducts()
-
-	return products
 }
+
+export const addProduct = async ({ name, price, description }) => {
+
+	try{
+		const newProduct = await addDoc(collection(db, 'products'), {
+			name: name,
+			price: price,
+			description: description
+		})
+		console.log('Producto agregado con éxito: id:'+newProduct)
+		
+	} catch (err){
+		console.log('Error agregando producto bro: '+err )
+	}
+}	
