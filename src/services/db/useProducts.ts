@@ -33,7 +33,7 @@ export const useProducts = (): any => {
 	}
 }
 
-export const addProduct = async ({ name, price, description }) => {
+export const addProduct = async ({ name, price, description }: Product) => {
 
 	try{
 		const newProduct = await addDoc(collection(db, 'products'), {
