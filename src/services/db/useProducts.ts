@@ -2,6 +2,14 @@ import { db } from '@services/firebaseConfig'
 import { collection, getDocs, query, where, addDoc } from 'firebase/firestore'
 import { useState, useEffect } from 'react'
 
+/* interface Product {
+	id: string
+	products: Object[]
+	status: string
+	table: string
+	wait: string
+}
+ */
 interface Product {
 	id: string
 	name: string
@@ -16,7 +24,7 @@ export const useProducts = (): any => {
 	useEffect(() => {
 		const fetchProducts = async () => {
 			setLoading(true)
-			const querySnapshot = await getDocs(collection(db, 'products'))
+			const querySnapshot = await getDocs(collection(db, 'tables'))
 			const fetchedProducts = querySnapshot.docs.map(doc => ({
 				id: doc.id,
 				...doc.data(),

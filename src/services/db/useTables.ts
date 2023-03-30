@@ -1,16 +1,32 @@
 import { db } from '@services/firebaseConfig'
-import { collection, getDocs, doc, query, where, addDoc, deleteDoc } from 'firebase/firestore'
+import { collection, getDocs, doc, addDoc, deleteDoc } from 'firebase/firestore'
+
 import { useState, useEffect } from 'react'
+import { GetDocument } from './useGetDoc'
 
 interface Table {
-    id: string
+	id: string
 	ntable: number
-    order: any
+	orderId: string
+}
+interface TableOrder {
+	id: string
+	ntable: number
+	order: object
+}
+
+interface Order{
+	products: object[]
+	status: string
+	table: any
+	waitressId: any
 }
 
 export const useTables = (): any => {
 	const [tables, setTables] = useState<Table[]>([])
+	const [tablesOrders, setTablesOrders] = useState<TableOrder[]>([])
 	const [loading, setLoading] = useState<Boolean>()
+
 
 	useEffect(() => {
 		const fetchTables = async () => {
@@ -20,36 +36,43 @@ export const useTables = (): any => {
 				id: doc.id,
 				...doc.data(),
 			})) as Table[]
+
 			setTables(fetchedTables as Table[])
 			setLoading(false)
 		}
 		fetchTables()
 	}, [])
+	/* tables.map(table =>
+		setTablesOrders([
+			...tablesOrders,
+			{
+				id: table.id,
+				ntable: table.ntable,
+				order: GetDocument('orders', table.orderId),
+			},
+		])
+	) */
 
 	return {
 		tables: tables,
-		loading: loading
+		loading: loading,
 	}
 }
 export const addTable = async (ntable: Table) => {
-
-	try{
+	try {
 		const newTable = await addDoc(collection(db, 'tables'), {
-			ntable: ntable
+			ntable: ntable,
 		})
-		console.log('Mesa creada con éxito: id: '+newTable)
-		
-	} catch (err){
-		console.log('Error agregando mesa bro: '+err )
+		console.log('Mesa creada con éxito: id: ' + newTable)
+	} catch (err) {
+		console.log('Error agregando mesa bro: ' + err)
 	}
-}	
+}
 export const deleteTable = async (id: string) => {
-
-	try{
+	try {
 		const deletedTable = await deleteDoc(doc(db, 'tables', id))
-		console.log('Mesa creada con éxito: id: '+deletedTable)
-		
-	} catch (err){
-		console.log('Error agregando mesa bro: '+err )
+		console.log('Mesa creada con éxito: id: ' + deletedTable)
+	} catch (err) {
+		console.log('Error agregando mesa bro: ' + err)
 	}
-}	
+}

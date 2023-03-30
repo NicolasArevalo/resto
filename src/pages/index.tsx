@@ -39,7 +39,6 @@ export default function Home() {
 				{loading && <div>CARGANDO...</div>}
 				{tables.lenght < 1 && <div>No hay Mesas</div>}
 				{tables.map((table: Table) => {
-					
 					return (
 						<li key={table.id} className='flex gap-2'>
 							<Image src='/table.png' width='50' height='50' alt='table icon' />
