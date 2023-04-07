@@ -1,4 +1,4 @@
-import app from '@services/firebaseConfig'
+import {app} from '@services/firebaseConfig'
 
 import { getAuth } from "firebase/auth";
 

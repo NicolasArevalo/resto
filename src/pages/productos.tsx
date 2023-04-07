@@ -2,7 +2,7 @@ import Layout from '@components/Layout'
 import { useProducts, addProduct } from '@services/db'
 
 interface Product {
-	id: string
+	id: string 
 	name: string
 	price: number
 	description: string
@@ -12,11 +12,12 @@ export default function Productos() {
 	const { products, loading } = useProducts()
 
 	const handleAddProduct = () => {
-		let name = prompt('Nombre del producto...')
-		let price = prompt('Precio del producto...')
-		let description = prompt('Descripción del producto...')
+		let id = 'id'
+		let name = 'Nombre del producto...'
+		let price = 1000
+		let description = 'Descripción del producto...'
 
-		addProduct({name, price, description})
+		addProduct({id, name, price, description})
 	}
 
 	return (

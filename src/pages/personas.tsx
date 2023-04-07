@@ -14,11 +14,11 @@ export default function Personas() {
 	const { people, loading } = usePeople()
 
 	const handleAddPerson = () => {
-		let name = prompt('Nombre de la perrsona...')
-		let rol = prompt('Rol de la persona...')
-		let ndoc = prompt('Número de documento de la persona...')
+		let name = 'Nombre de la perrsona...'
+		let rol = 'Rol de la persona...'
+		let ndoc = 'Número de documento de la persona...'
 
-		addPerson({ name, rol, ndoc })
+		addPerson( name, rol, ndoc )
 	}
 
 	return (

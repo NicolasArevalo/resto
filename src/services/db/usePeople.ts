@@ -33,7 +33,7 @@ export const usePeople = (): any => {
 	}
 }
 
-export const addPerson = async ({ name, rol, ndoc }) => {
+export const addPerson = async (name: string, rol: string, ndoc: string) => {
 
 	try{
 		const newPerson = await addDoc(collection(db, 'people'), {
